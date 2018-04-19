@@ -7,16 +7,20 @@ import { COMPONENTS } from './components';
 import { PAGES } from './pages';
 import { SERVICES } from './services';
 import { SurveyRoutingModule } from './survey.router';
+import { SharedModule } from '../shared/shared.module';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     SurveyRoutingModule,
+    SharedModule,
     StoreModule.forFeature('surveyFeatureModel', reducer)
   ],
   exports: [],
   declarations: [COMPONENTS, PAGES],
   providers: [SERVICES],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SurveyModule { }
