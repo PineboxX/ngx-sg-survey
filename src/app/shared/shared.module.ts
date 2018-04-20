@@ -5,7 +5,8 @@ import {
   MatCheckboxModule,
   MatIconModule,
   MatInputModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatRadioModule,
 } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { OnsenModule } from 'ngx-onsenui';
@@ -15,7 +16,8 @@ export const MATERIAL_MODULES = [
   MatCheckboxModule,
   MatIconModule,
   MatInputModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatRadioModule
 ];
 
 @NgModule({

@@ -1,5 +1,6 @@
 import * as surveyActions from '../../survey/actions/survey.actions';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { SurveyQuestion } from '../models/questions.model';
 
 export type Action = surveyActions.All;
 
@@ -8,21 +9,19 @@ export interface SurveyFeatureModel {
 }
 
 export interface State {
-  questions: any,
+  questions: SurveyQuestion[],
   answers: any
 }
 
 export const initialState: State = {
-  questions: null,
+  questions: [],
   answers: null
 }
 
-export function reducer(state: State = null, action: Action) {
+export function reducer(state: State = initialState, action: Action) {
   switch (action.type) {
-    case surveyActions.GET_QUESTIONS:
+    case surveyActions.SET_QUESTIONS:
       return { ...state, questions: action.payload };
-    case surveyActions.GET_ANSWER:
-      return { ...state, answers: action.payload }
     default:
       return state;
   }

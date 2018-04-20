@@ -1,12 +1,19 @@
 import { Action } from '@ngrx/store';
+import { SurveyQuestion } from '../models/questions.model';
 
 export const GET_QUESTIONS = '[ Survey ] - Get Questions';
+export const SET_QUESTIONS = '[ Survey ] - Set Questions';
 export const SAVE_ANSWER = '[ Survey ] - Save Answer';
 export const GET_ANSWER = '[ Survey ] - Get Answer';
 
 export class getQuestions implements Action {
   readonly type = GET_QUESTIONS;
-  constructor(public payload: any) { }
+  constructor() { }
+}
+
+export class setQuestions implements Action {
+  readonly type = SET_QUESTIONS;
+  constructor(public payload: SurveyQuestion[]) { }
 }
 
 export class saveAnswer implements Action {
@@ -20,5 +27,6 @@ export class GetAnswer implements Action {
 }
 
 export type All = getQuestions |
+  setQuestions |
   saveAnswer |
   GetAnswer;

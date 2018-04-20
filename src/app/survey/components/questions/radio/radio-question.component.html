@@ -1,13 +1,22 @@
 <ons-card>
   <div class="title">
-    Awesome framework
+    {{ question.title }}
   </div>
-  <div class="content">
-    <mat-radio-button value="1">Option 1</mat-radio-button>
+  <div>
+    <form [formGroup]="form" (ngSubmit)="onSubmittedForm(form)">
+      <mat-radio-group formControlName="answer">
+        <ng-container *ngFor="let option of question.options">
+          <mat-radio-button [value]="option.id"> {{ option.title }}</mat-radio-button>
+        </ng-container>
+      </mat-radio-group>
 
-    <mat-radio-group>
-      <mat-radio-button value="1">Option 1</mat-radio-button>
-      <mat-radio-button value="2">Option 2</mat-radio-button>
-    </mat-radio-group>
+      {{ form.invalid && form.dirty }}
+      <ng-container *ngIf="form.invalid && form.dirty">
+        <p> Selecciona una respuesta, antes de continuar</p>
+      </ng-container>
+
+      <button mat-button type="submit"> Siguiente</button>
+
+    </form>
   </div>
 </ons-card>

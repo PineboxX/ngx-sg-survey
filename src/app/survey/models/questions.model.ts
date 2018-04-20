@@ -1,12 +1,7 @@
-export interface CheckboxQuestion {
+export interface SurveyQuestion {
   id: string;
   title: string;
-  options: QuestionOptions[]
-}
-
-export interface RadioQuestion {
-  id: string;
-  title: string;
+  type: 'checkbox' | 'radio';
   options: QuestionOptions[]
 }
 

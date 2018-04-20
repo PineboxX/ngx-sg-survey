@@ -3,7 +3,15 @@
     <div class="center">SG Survey</div>
   </ons-toolbar>
   <div class="background"></div>
-  <div class="content">
-    <app-survey-question-radio></app-survey-question-radio>
+  <div class="content responsive-content">
+    <pre> {{ surveyQuestions$ | async | json }}</pre>
+    <ng-container *ngIf="surveyQuestions$ | async as surveyQuestion">
+      <ng-container *ngFor="let question of surveyQuestion">
+        {{ question.type }}
+        <ng-container [ngSwitch]="question.type">
+          <app-survey-question-radio *ngSwitchCase="'radio'" [question]="question"></app-survey-question-radio>
+        </ng-container>
+      </ng-container>
+    </ng-container>
   </div>
 </ons-page>
