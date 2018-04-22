@@ -1,8 +1,13 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-
+import { Output, EventEmitter } from "@angular/core";
 export abstract class QuestionUnique {
 
   public form: FormGroup;
+
+  public formSubmitted: boolean = false;
+
+  @Output('saveAnswer')
+  public saveAnswer: EventEmitter<any> = new EventEmitter();
 
   constructor(public fb: FormBuilder) { }
 
@@ -18,7 +23,9 @@ export abstract class QuestionUnique {
   }
 
   public onSubmittedForm({ value, valid }: { value: any, valid: boolean }) {
-    console.log(value, valid);
+    if (valid) {
+      this.saveAnswer.emit(value);
+    }
   }
 
 }

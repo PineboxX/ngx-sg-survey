@@ -8,3 +8,31 @@
   margin:  0 auto;
   max-width: 700px;
 }
+
+.center-text{
+  text-align: center
+}
+
+.green-1{
+  background-color: #023324;
+}
+
+.green-2{
+  background-color: #78b92f;
+}
+
+.green-2-color{
+  color: #78b92f;
+}
+
+.background{
+  background-color: #111 !important;
+}
+
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+  border-color: #78b92f !important;
+}
+.mat-radio-button.mat-accent .mat-radio-inner-circle{
+  background-color: #78b92f !important;
+}

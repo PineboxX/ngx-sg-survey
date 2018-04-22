@@ -1,17 +1,34 @@
 <ons-page>
   <ons-toolbar>
-    <div class="center">SG Survey</div>
+    <div class="center green-1">
+      <img src="https://www.uexternado.edu.co/wp-content/themes/externado_theme/images/logo-uec.svg" alt="Universidad Externado de Colombia"
+        src-backup="https://www.uexternado.edu.co/wp-content/themes/externado_theme/images/logo-uec.svg" style="
+        width: 200px;
+    ">
+    </div>
   </ons-toolbar>
   <div class="background"></div>
   <div class="content responsive-content">
-    <pre> {{ surveyQuestions$ | async | json }}</pre>
-    <ng-container *ngIf="surveyQuestions$ | async as surveyQuestion">
-      <ng-container *ngFor="let question of surveyQuestion">
-        {{ question.type }}
+    <!-- <pre> {{ surveyQuestions$ | async | json }}</pre> -->
+    <ng-container *ngIf="surveyQuestions; else loader">
+      <ng-container *ngFor="let question of getCurrentQuestions()">
         <ng-container [ngSwitch]="question.type">
-          <app-survey-question-radio *ngSwitchCase="'radio'" [question]="question"></app-survey-question-radio>
+          <app-survey-question-radio *ngSwitchCase="'radio'" [question]="question" (saveAnswer)="saveAnswers($event)"></app-survey-question-radio>
+          <app-survey-question-checkbox *ngSwitchCase="'checkbox'" [question]="question" (saveAnswer)="saveAnswers($event)"></app-survey-question-checkbox>
         </ng-container>
       </ng-container>
+      <ons-fab class="next_button green-2" position="center bottom" *ngIf="itsTheLastQuestion(); else notLastQuestion" (click)="next()">
+        <ons-icon icon="ion-close"></ons-icon>
+      </ons-fab>
+      <ng-template #notLastQuestion>
+        <ons-fab class="next_button green-2" position="center bottom" (click)="next()">
+          <ons-icon icon="md-arrow-right"></ons-icon>
+        </ons-fab>
+      </ng-template>
     </ng-container>
+    <ng-template #loader>
+      <ons-progress-circular indeterminate></ons-progress-circular>
+      <p> ... Cargando preguntas ... </p>
+    </ng-template>
   </div>
 </ons-page>

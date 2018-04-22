@@ -6,6 +6,7 @@ import { Action } from '@ngrx/store';
 import * as surveyActions from '../../survey/actions/survey.actions';
 import { switchMap, map } from 'rxjs/operators';
 import { SurveyQuestion } from '../models/questions.model';
+import * as ons from 'onsenui';
 
 @Injectable()
 export class SurveyEffects {
@@ -17,6 +18,21 @@ export class SurveyEffects {
       return this.surveyService.getActiveQuestion()
         .pipe(map((questions: SurveyQuestion[]) => new surveyActions.setQuestions(questions)))
     }))
+
+  @Effect({ dispatch: false })
+  public saveAnswers: Observable<any> = this.actions$
+    .ofType(surveyActions.SAVE_ANSWER)
+    .pipe(
+      switchMap((data: any) => {
+        console.log('action', data);
+        return this.surveyService.saveAnswersFromSurvey(data.payload)
+          .pipe(map(() => {
+            ons.notification.alert('Se han guardado tus respuestas satisfactoriamente',
+              {
+                title: 'Encuesta Finalizada'
+              });
+          }))
+      }))
 
 
   constructor(

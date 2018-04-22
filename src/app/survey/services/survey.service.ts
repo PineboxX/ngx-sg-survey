@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
 import { SurveyQuestion } from '../models/questions.model';
 import { isEmpty, concat } from 'lodash';
+import * as firebase from 'firebase';
+
 @Injectable()
 export class SurveyService {
 
@@ -14,7 +16,6 @@ export class SurveyService {
   ) { }
 
   public getActiveQuestion(): Observable<SurveyQuestion[]> {
-    console.log('Active Question');
     return this.afStore.collection(environment.organization).doc('survey-config').valueChanges()
       .pipe(switchMap((surveyConfig: any) => {
         if (surveyConfig.active) {
@@ -52,10 +53,31 @@ export class SurveyService {
   public getOptionsFromSurvey(surveyId: string, questionId: string) {
     return this.afStore.collection(environment.organization).doc('survey-questions')
       .collection(surveyId).doc(questionId).collection('options').valueChanges();
+
+  }
+
+  public saveAnswersFromSurvey(surveyAnswers, userId = 1): Observable<any> {
+    let id = this.afStore.createId();
+    return this.afStore.collection(environment.organization).doc('survey-config').valueChanges()
+      .pipe(switchMap((surveyConfig: any) => {
+        console.log('guardando');
+        return this.afStore.collection(environment.organization).doc('survey-answers')
+          .collection(surveyConfig.active).doc(id).set({
+            id: id,
+            answers: surveyAnswers,
+            userId: userId,
+            surveyId: surveyConfig.active,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+          })
+      })
+      )
+
   }
 
   public getAnswersFromSurvey(surveyId, userId) {
     return this.afStore.collection(environment.organization).doc('survey-answers')
       .collection(surveyId, ref => ref.where('userId', '==', userId)).valueChanges();
   }
+
+
 }

@@ -10,3 +10,8 @@ export interface QuestionOptions {
   title: string;
   value: string;
 }
+
+export interface SurveyAnswers {
+  id: string;
+  answers: any
+}

@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { SurveyQuestion } from '../models/questions.model';
+import { SurveyQuestion, SurveyAnswers } from '../models/questions.model';
 
 export const GET_QUESTIONS = '[ Survey ] - Get Questions';
 export const SET_QUESTIONS = '[ Survey ] - Set Questions';

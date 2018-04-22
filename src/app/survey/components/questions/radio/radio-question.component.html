@@ -9,14 +9,7 @@
           <mat-radio-button [value]="option.id"> {{ option.title }}</mat-radio-button>
         </ng-container>
       </mat-radio-group>
-
-      {{ form.invalid && form.dirty }}
-      <ng-container *ngIf="form.invalid && form.dirty">
-        <p> Selecciona una respuesta, antes de continuar</p>
-      </ng-container>
-
-      <button mat-button type="submit"> Siguiente</button>
-
+      <!-- <button mat-button type="submit"> Siguiente</button> -->
     </form>
   </div>
 </ons-card>
