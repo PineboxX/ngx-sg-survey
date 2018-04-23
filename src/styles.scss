@@ -1,12 +1,18 @@
+
 @import '~onsenui/css/onsenui.css';
 @import '~onsenui/css/onsen-css-components.css';
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 
+*{
+  font-family: 'Roboto', sans-serif;
+}
+
 .responsive-content{
   margin:  0 auto;
   max-width: 700px;
+  top: 80px !important
 }
 
 .center-text{
@@ -35,4 +41,8 @@
 }
 .mat-radio-button.mat-accent .mat-radio-inner-circle{
   background-color: #78b92f !important;
+}
+
+ons-toolbar{
+  height: 80px !important;
 }
