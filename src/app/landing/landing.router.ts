@@ -4,7 +4,7 @@ import { LandingMainPage } from './pages/main/landing-main.page';
 import { LandingRegisterPage } from './pages/register/landing-register.page';
 
 const routes: Routes = [
-  { path: 'landing', component: LandingMainPage },
+  { path: '', component: LandingMainPage },
   { path: 'register', component: LandingRegisterPage },
 ];
 

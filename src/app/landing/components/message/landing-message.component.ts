@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-landing-message',
@@ -6,7 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class LandingMessageComponent implements OnInit {
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() { }
+
+  participate() {
+    console.log('works');
+    this.router.navigate(['register']);
+  }
 }
