@@ -7,6 +7,7 @@ import * as surveyActions from '../../survey/actions/survey.actions';
 import { switchMap, map } from 'rxjs/operators';
 import { SurveyQuestion } from '../models/questions.model';
 import * as ons from 'onsenui';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class SurveyEffects {
@@ -27,6 +28,7 @@ export class SurveyEffects {
         console.log('action', data);
         return this.surveyService.saveAnswersFromSurvey(data.payload)
           .pipe(map(() => {
+            this.router.navigate(['thanks']);
             ons.notification.alert('Se han guardado tus respuestas satisfactoriamente',
               {
                 title: 'Encuesta Finalizada'
@@ -37,6 +39,7 @@ export class SurveyEffects {
 
   constructor(
     private actions$: Actions,
-    private surveyService: SurveyService
+    private surveyService: SurveyService,
+    private router: Router
   ) { }
 }

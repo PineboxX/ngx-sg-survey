@@ -5,10 +5,11 @@ import * as surveyActions from '../../actions/survey.actions';
 import * as surveySelectors from '../../reducers/survey.reducer';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { chunk, has } from 'lodash';
+import { chunk, has, orderBy } from 'lodash';
 import { SurveyQuestionCheckboxComponent } from '../../components/questions/checkbox/checkbox-question.component';
 import { SurveyQuestionRadioComponent } from '../../components/questions/radio/radio-question.component';
 import * as ons from 'onsenui';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'page-survey-main',
@@ -31,7 +32,8 @@ export class SurveyMainPage implements OnInit {
   public currentSurveyIndex = 0;
 
   constructor(
-    private store: Store<{}>
+    private store: Store<{}>,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -43,7 +45,9 @@ export class SurveyMainPage implements OnInit {
     this.surveyQuestionsSubs = this.store.select(surveySelectors.getSurveyQuestions)
       .subscribe((surveyQuestions: SurveyQuestion[]) => {
         this.surveyQuestions = surveyQuestions;
-        this.surveyQuestions = chunk(surveyQuestions, 2);
+        this.surveyQuestions = orderBy(surveyQuestions, ['order'], ['asc'])
+        console.log(this.surveyQuestions);
+        this.surveyQuestions = chunk(this.surveyQuestions, 2);
       });
   }
 
@@ -69,7 +73,6 @@ export class SurveyMainPage implements OnInit {
         this.currentSurveyIndex += 1;
       } else {
         this.saveAnswerOnDatabase();
-        alert('Gracias por tu participación');
       }
 
     } else {
@@ -110,10 +113,10 @@ export class SurveyMainPage implements OnInit {
 
   public saveAnswers(event) {
     this.surveyAnswers[event.id] = event;
+
   }
 
   public saveAnswerOnDatabase() {
-    console.log('dispatching', this.surveyAnswers);
     this.store.dispatch(new surveyActions.saveAnswer(this.surveyAnswers))
   }
 }

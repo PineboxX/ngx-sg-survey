@@ -14,7 +14,6 @@ export class LandingMessageComponent implements OnInit {
   ngOnInit() { }
 
   participate() {
-    console.log('works');
     this.router.navigate(['register']);
   }
 }

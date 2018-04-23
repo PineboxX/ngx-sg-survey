@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as ons from 'onsenui';
+import * as landingActions from '../../actions/landing.actions';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'app-landing-register',
@@ -15,7 +17,8 @@ export class LandingRegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private store: Store<{}>
+    private store: Store<{}>,
+    private afAuth: AngularFireAuth
   ) { }
 
   ngOnInit() {
@@ -36,14 +39,25 @@ export class LandingRegisterComponent implements OnInit {
       switch (value.know) {
         case "true":
           // Chane to true: boolean
+          this.store.dispatch(new landingActions.RegisterUser({ genere: value.genere, age: value.age, know: true }));
+
           break;
         case "false":
-          ons.notification.alert({
-            message: 'Muchas gracias por su tiempo y colaboración',
-            title: 'Encuesta Finalizada'
-          })
+          this.store.dispatch(new landingActions.RegisterUser({ genere: value.genere, age: value.age, know: false }))
           break;
       }
     }
+    else {
+      ons.notification.toast('Completa todos los campos', {
+        timeout: 1000
+      })
+    }
+  }
+
+  public canShowRegister() {
+    if (this.afAuth.auth.currentUser === undefined) {
+      return false;
+    }
+    return false;
   }
 }

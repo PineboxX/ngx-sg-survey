@@ -7,12 +7,14 @@ import { environment } from '../../../environments/environment';
 import { SurveyQuestion } from '../models/questions.model';
 import { isEmpty, concat } from 'lodash';
 import * as firebase from 'firebase';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable()
 export class SurveyService {
 
   constructor(
-    private afStore: AngularFirestore
+    private afStore: AngularFirestore,
+    private afAuth: AngularFireAuth
   ) { }
 
   public getActiveQuestion(): Observable<SurveyQuestion[]> {
@@ -56,22 +58,38 @@ export class SurveyService {
 
   }
 
-  public saveAnswersFromSurvey(surveyAnswers, userId = 1): Observable<any> {
+  public saveAnswersFromSurvey(surveyAnswers): Observable<any> {
     let id = this.afStore.createId();
     return this.afStore.collection(environment.organization).doc('survey-config').valueChanges()
       .pipe(switchMap((surveyConfig: any) => {
-        console.log('guardando');
-        return this.afStore.collection(environment.organization).doc('survey-answers')
+        return Observable.fromPromise(this.afStore.collection(environment.organization).doc('survey-answers')
           .collection(surveyConfig.active).doc(id).set({
             id: id,
             answers: surveyAnswers,
-            userId: userId,
+            userId: this.afAuth.auth.currentUser.uid,
             surveyId: surveyConfig.active,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
-          })
+          })).pipe(switchMap(() => {
+            return this.saveStatistic();
+          }))
       })
       )
+  }
 
+  public saveStatistic() {
+    let sfDocRef = firebase.firestore().collection(environment.organization).doc
+      ("survey-statistics").collection("answers").doc('completed');
+
+
+    return Observable.fromPromise(firebase.firestore().runTransaction((transaction) => {
+      return transaction.get(sfDocRef).then(function (sfDoc) {
+        if (!sfDoc.exists) {
+          throw "Document does not exist!";
+        }
+        var newPopulation = sfDoc.data().total + 1;
+        transaction.update(sfDocRef, { total: newPopulation });
+      });
+    }));
   }
 
   public getAnswersFromSurvey(surveyId, userId) {

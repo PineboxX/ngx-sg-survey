@@ -24,7 +24,7 @@ export abstract class QuestionUnique {
 
   public onSubmittedForm({ value, valid }: { value: any, valid: boolean }) {
     if (valid) {
-      this.saveAnswer.emit(value);
+      this.saveAnswer.emit({ id: value.id, value: value });
     }
   }
 

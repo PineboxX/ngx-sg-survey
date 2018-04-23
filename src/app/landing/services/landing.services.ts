@@ -16,7 +16,7 @@ export class LandingService {
   ) { }
 
   public savePreRegister(preRegister: preRegister) {
-    this.createUserOnAuth()
+    return this.createUserOnAuth()
       .pipe(switchMap(() => {
         return this.savePreRegisterOnFirestore(preRegister, this.afAuth.auth.currentUser.uid)
           .pipe(switchMap(() => {
@@ -38,24 +38,26 @@ export class LandingService {
   }
 
   public saveStatistic(preRegisterKnow: boolean) {
+    console.log('preRegisterKnow', preRegisterKnow);
     let sfDocRef;
     switch (preRegisterKnow) {
       case true:
-        sfDocRef = this.afStore.collection("survey-statistics").doc("enable-people")
+        sfDocRef = firebase.firestore().collection(environment.organization).doc
+          ("survey-statistics").collection("users").doc('enable')
         break;
       case false:
-        sfDocRef = this.afStore.collection("survey-statistics").doc("unable-people")
+        sfDocRef = firebase.firestore().collection(environment.organization).doc
+          ("survey-statistics").collection("users").doc('unable')
         break;
     }
 
-    return Observable.fromPromise(this.afStore.firestore.runTransaction(function (transaction) {
-      // This code may get re-run multiple times if there are conflicts.
+    return Observable.fromPromise(firebase.firestore().runTransaction((transaction) => {
       return transaction.get(sfDocRef).then(function (sfDoc) {
         if (!sfDoc.exists) {
           throw "Document does not exist!";
         }
-        var newPopulation = sfDoc.data().population + 1;
-        transaction.update(sfDocRef, newPopulation);
+        var newPopulation = sfDoc.data().total + 1;
+        transaction.update(sfDocRef, { total: newPopulation });
       });
     }));
   }
