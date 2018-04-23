@@ -6,10 +6,12 @@ import { COMPONENTS } from './components';
 import { PAGES } from './pages';
 import { LandingRoutingModule } from './landing.router';
 import { SharedModule } from '../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     LandingRoutingModule,
     SharedModule
   ],

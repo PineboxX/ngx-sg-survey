@@ -1,0 +1,42 @@
+<ons-card>
+  <div class="title center-text">
+    Pre - Registro
+  </div>
+  <div class="center-form">
+
+    <p> Recuerda que la participación es anoonima</p>
+    <form [formGroup]="form" (ngSubmit)="onFormSubmitted(form)">
+      <mat-form-field>
+        <p> ¿ Cuál es tu genero ? </p>
+        <mat-select formControlName="genere">
+          <mat-option value="M">
+            Hombre
+          </mat-option>
+          <mat-option value="F">
+            Mujer
+          </mat-option>
+          <mat-option value="Otro">
+            Otro
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <p> ¿ Cuál es tu edad ? </p>
+      <mat-form-field>
+        <input matInput type="number" formControlName="age">
+      </mat-form-field>
+      <br>
+      <p> ¿Conoce usted la empresa
+        <strong>CREPES & WAFFLES</strong> ?</p>
+      <mat-radio-group formControlName="know">
+        <ng-container>
+          <mat-radio-button value="true"> Si </mat-radio-button>
+          <br>
+          <mat-radio-button value="false"> No </mat-radio-button>
+        </ng-container>
+      </mat-radio-group>
+      <br>
+      <button mat-button type="submit"> Registrarme </button>
+    </form>
+  </div>
+</ons-card>
