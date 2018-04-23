@@ -35,7 +35,7 @@ export class LandingRegisterComponent implements OnInit {
     if (valid) {
       switch (value.know) {
         case "true":
-
+          // Chane to true: boolean
           break;
         case "false":
           ons.notification.alert({
