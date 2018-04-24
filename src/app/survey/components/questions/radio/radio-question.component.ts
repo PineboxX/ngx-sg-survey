@@ -24,8 +24,10 @@ export class SurveyQuestionRadioComponent extends QuestionUnique implements OnIn
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.patchForm({ id: this.question.id });
-    this.orderOptions();
+    if (changes.question.firstChange === false) {
+      this.patchForm({ id: this.question.id });
+      this.orderOptions();
+    }
   }
 
   public orderOptions() {

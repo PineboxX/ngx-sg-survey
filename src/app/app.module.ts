@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OnsenModule } from 'ngx-onsenui';
 import { EffectsModule } from '@ngrx/effects';
 import { StarRatingModule } from 'angular-star-rating';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { StarRatingModule } from 'angular-star-rating';
     AppRoutingModule,
     MODULES,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
     StoreModule.forRoot({}),

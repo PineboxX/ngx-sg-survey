@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { preRegister } from '../models/landing.model';
-import { AngularFirestore } from 'angularfire2/firestore';
 import { environment } from '../../../environments/environment';
 import * as firebase from 'firebase';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { switchMap } from 'rxjs/operators';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Injectable()
 export class LandingService {
 
   constructor(
-    private afStore: AngularFirestore,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private afDb: AngularFireDatabase
   ) { }
 
   public savePreRegister(preRegister: preRegister) {
@@ -33,36 +33,33 @@ export class LandingService {
   }
 
   public savePreRegisterOnFirestore(preRegister: preRegister, userId: string) {
-    return Observable.fromPromise(this.afStore.collection(environment.organization).doc('pre-registers')
-      .collection('users').doc(userId).set({
-        id: userId,
-        register: preRegister,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-      }));
+    return Observable.fromPromise(
+      this.afDb.object(`${environment.organization}//users/${userId}`)
+        .set({
+          id: userId,
+          register: preRegister,
+          timestamp: firebase.database.ServerValue.TIMESTAMP
+        }));
   }
 
   public saveStatistic(preRegisterKnow: boolean) {
-    console.log('preRegisterKnow', preRegisterKnow);
-    let sfDocRef;
+    let ref;
     switch (preRegisterKnow) {
       case true:
-        sfDocRef = firebase.firestore().collection(environment.organization).doc
-          ("survey-statistics").collection("users").doc('enable')
+        ref = `${environment.organization}/survey-statistics/enable`;
         break;
       case false:
-        sfDocRef = firebase.firestore().collection(environment.organization).doc
-          ("survey-statistics").collection("users").doc('unable')
+        ref = `${environment.organization}/survey-statistics/unable`;
         break;
     }
 
-    return Observable.fromPromise(firebase.firestore().runTransaction((transaction) => {
-      return transaction.get(sfDocRef).then(function (sfDoc) {
-        if (!sfDoc.exists) {
-          throw "Document does not exist!";
+    return Observable.fromPromise(this.afDb.object(ref)
+      .query.ref.transaction((surveyStats) => {
+        if (surveyStats) {
+          return surveyStats + 1;
+        } else {
+          return 1
         }
-        var newPopulation = sfDoc.data().total + 1;
-        transaction.update(sfDocRef, { total: newPopulation });
-      });
-    }));
+      }));
   }
 }
