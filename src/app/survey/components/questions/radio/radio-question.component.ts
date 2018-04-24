@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 import { QuestionUnique } from '../../../abstract/question-unique.abstract';
 import { FormBuilder } from '@angular/forms';
 import { SurveyQuestion } from '../../../models/questions.model';
-import { orderBy } from 'lodash';
+import { orderBy, toArray } from 'lodash';
 @Component({
   selector: 'app-survey-question-radio',
   templateUrl: 'radio-question.component.html'
@@ -32,5 +32,9 @@ export class SurveyQuestionRadioComponent extends QuestionUnique implements OnIn
 
   public orderOptions() {
     orderBy(this.question.options, ['order'], ['asc'])
+  }
+
+  public convertToArray(obj) {
+    return toArray(obj);
   }
 }

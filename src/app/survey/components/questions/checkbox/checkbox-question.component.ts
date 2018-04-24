@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { QuestionMultiple } from '../../../abstract/question-multiple.abstract';
 import { FormBuilder } from '@angular/forms';
 import { SurveyQuestion } from '../../../models/questions.model';
-import { orderBy } from 'lodash';
+import { orderBy, toArray } from 'lodash';
 @Component({
   selector: 'app-survey-question-checkbox',
   templateUrl: 'checkbox-question.component.html'
@@ -25,5 +25,9 @@ export class SurveyQuestionCheckboxComponent extends QuestionMultiple implements
 
   public orderOptions() {
     orderBy(this.question.options, ['order'], ['asc'])
+  }
+
+  public convertToArray(obj) {
+    return toArray(obj);
   }
 }

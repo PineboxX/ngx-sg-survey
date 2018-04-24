@@ -5,7 +5,7 @@
   <div>
     <form [formGroup]="form" (ngSubmit)="onSubmittedForm(form)">
       <mat-radio-group formControlName="answer">
-        <ng-container *ngFor="let option of question.options">
+        <ng-container *ngFor="let option of convertToArray(question.options)">
           <mat-radio-button [value]="option.id"> {{ option.title }}</mat-radio-button>
           <br>
         </ng-container>

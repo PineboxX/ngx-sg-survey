@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
-import { AppRoutingModule } from './auth.router';
+import { AppRoutingModule } from './app.router';
 import { MODULES } from './modules';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -15,6 +15,7 @@ import { OnsenModule } from 'ngx-onsenui';
 import { EffectsModule } from '@ngrx/effects';
 import { StarRatingModule } from 'angular-star-rating';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
     AngularFirestoreModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
-    StarRatingModule.forRoot()
+    StarRatingModule.forRoot(),
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

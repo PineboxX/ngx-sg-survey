@@ -4,7 +4,7 @@ import { environment } from '../../../environments/environment';
 import * as firebase from 'firebase';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, map } from 'rxjs/operators';
 import { AngularFireDatabase } from 'angularfire2/database';
 
 @Injectable()
@@ -25,8 +25,15 @@ export class LandingService {
       }))
   }
   public createUserOnAuth() {
-    return Observable.fromPromise(this.afAuth.auth.signInAnonymously());
+
+    return Observable.fromPromise(new Promise((resolve, reject) => {
+      this.afAuth.auth.signInAnonymously().then(() => {
+        console.log('Sign in success');
+        resolve();
+      }).catch(error => console.error(error));
+    }));
   }
+
 
   public signOutUser() {
     return Observable.fromPromise(this.afAuth.auth.signOut());
@@ -34,7 +41,7 @@ export class LandingService {
 
   public savePreRegisterOnFirestore(preRegister: preRegister, userId: string) {
     return Observable.fromPromise(
-      this.afDb.object(`${environment.organization}//users/${userId}`)
+      this.afDb.object(`${environment.organization}/users/${userId}`)
         .set({
           id: userId,
           register: preRegister,

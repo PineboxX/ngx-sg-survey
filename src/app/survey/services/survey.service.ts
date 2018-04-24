@@ -37,7 +37,7 @@ export class SurveyService {
 
   public saveAnswersFromSurvey(surveyAnswers): Observable<any> {
     let id = this.afStore.createId();
-    return this.afDb.list(`${environment.organization}/survey-config`).valueChanges()
+    return this.afDb.object(`${environment.organization}/survey-config`).valueChanges()
       .pipe(switchMap((surveyConfig: any) => {
         return Observable.fromPromise(
           this.afDb.object(`${environment.organization}/survey-answers/${surveyConfig.active}/${id}`).set({
