@@ -13,11 +13,11 @@
   <div class="background"></div>
   <div class="content responsive-content">
     <!-- <pre> {{ surveyQuestions$ | async | json }}</pre> -->
-    <ng-container *ngIf="surveyQuestions">
-      <ng-container *ngFor="let question of getCurrentQuestions()">
-        <ng-container [ngSwitch]="question.type">
-          <app-survey-question-radio *ngSwitchCase="'radio'" [question]="question" (saveAnswer)="saveAnswers($event)"></app-survey-question-radio>
-          <app-survey-question-checkbox *ngSwitchCase="'checkbox'" [question]="question" (saveAnswer)="saveAnswers($event)"></app-survey-question-checkbox>
+    <ng-container *ngIf="surveyQuestions !== undefined && getCurrentQuestions() !== undefined">
+      <ng-container>
+        <ng-container [ngSwitch]="getCurrentQuestions().type">
+          <app-survey-question-radio *ngSwitchCase="'radio'" [question]="getCurrentQuestions()" (saveAnswer)="saveAnswers($event)"></app-survey-question-radio>
+          <app-survey-question-checkbox *ngSwitchCase="'checkbox'" [question]="getCurrentQuestions()" (saveAnswer)="saveAnswers($event)"></app-survey-question-checkbox>
         </ng-container>
       </ng-container>
       <ons-fab class="next_button green-2" position="center bottom" *ngIf="itsTheLastQuestion(); else notLastQuestion" (click)="next()">

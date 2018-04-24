@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { QuestionUnique } from '../../../abstract/question-unique.abstract';
 import { FormBuilder } from '@angular/forms';
 import { SurveyQuestion } from '../../../models/questions.model';
@@ -8,7 +8,7 @@ import { orderBy } from 'lodash';
   templateUrl: 'radio-question.component.html'
 })
 
-export class SurveyQuestionRadioComponent extends QuestionUnique implements OnInit {
+export class SurveyQuestionRadioComponent extends QuestionUnique implements OnInit, OnChanges {
 
   @Input('question')
   public question: SurveyQuestion;
@@ -19,6 +19,11 @@ export class SurveyQuestionRadioComponent extends QuestionUnique implements OnIn
 
   ngOnInit() {
     this.buildForm();
+    this.patchForm({ id: this.question.id });
+    this.orderOptions();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
     this.patchForm({ id: this.question.id });
     this.orderOptions();
   }

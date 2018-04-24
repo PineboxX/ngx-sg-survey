@@ -50,7 +50,7 @@ export class SurveyMainPage implements OnInit {
       .subscribe((surveyQuestions: SurveyQuestion[]) => {
         this.surveyQuestions = surveyQuestions;
         this.surveyQuestions = orderBy(surveyQuestions, ['order'], ['asc'])
-        this.surveyQuestions = chunk(this.surveyQuestions, 2);
+        // this.surveyQuestions = chunk(this.surveyQuestions, 2);
         setTimeout(() => {
           this.alertDialog.nativeElement.hide();
         }, 3000)
@@ -118,6 +118,7 @@ export class SurveyMainPage implements OnInit {
   }
 
   public saveAnswers(event) {
+    console.warn('SavE ANSWER 'event);
     this.surveyAnswers[event.id] = event;
 
   }
