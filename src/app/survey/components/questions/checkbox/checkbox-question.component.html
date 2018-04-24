@@ -1,0 +1,14 @@
+<ons-card>
+  <div class="title center-text">
+    {{ question.title }}
+  </div>
+  <div>
+    <form [formGroup]="form" (ngSubmit)="onSubmittedForm(form)">
+      <ng-container *ngFor="let option of question.options">
+        <mat-checkbox formControlName="{{option.id}}"> {{ option.title }}</mat-checkbox>
+        <br>
+      </ng-container>
+      <!-- <button mat-button type="submit"> Siguiente</button> -->
+    </form>
+  </div>
+</ons-card>

@@ -1,0 +1,17 @@
+@media (max-width: 550px) {
+  .center-form{
+    margin-left: 30px
+  }
+}
+
+@media (min-width: 551px) and (max-width: 699px)  {
+  .center-form{
+    margin-left: 80px
+  }
+}
+
+@media (min-width: 700px) {
+  .center-form{
+    margin-left: 150px
+  }
+}

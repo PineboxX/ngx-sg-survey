@@ -1,0 +1,45 @@
+<ons-page>
+  <ons-toolbar>
+    <div class="center green-1" style="height:  100%;">
+      <img src="assets/imgs/logo-uec.svg" alt="Universidad Externado de Colombia" style="
+    width: 200px;
+    /* text-align:  center; */
+    margin:  0 auto;
+    display:  block;
+    margin-top: 10px;
+">
+    </div>
+  </ons-toolbar>
+  <div class="background"></div>
+  <div class="content responsive-content">
+    <!-- <pre> {{ surveyQuestions$ | async | json }}</pre> -->
+    <ng-container *ngIf="surveyQuestions">
+      <ng-container *ngFor="let question of getCurrentQuestions()">
+        <ng-container [ngSwitch]="question.type">
+          <app-survey-question-radio *ngSwitchCase="'radio'" [question]="question" (saveAnswer)="saveAnswers($event)"></app-survey-question-radio>
+          <app-survey-question-checkbox *ngSwitchCase="'checkbox'" [question]="question" (saveAnswer)="saveAnswers($event)"></app-survey-question-checkbox>
+        </ng-container>
+      </ng-container>
+      <ons-fab class="next_button green-2" position="center bottom" *ngIf="itsTheLastQuestion(); else notLastQuestion" (click)="next()">
+        <ons-icon icon="ion-close"></ons-icon>
+      </ons-fab>
+      <ng-template #notLastQuestion>
+        <ons-fab class="next_button green-2" position="center bottom" (click)="next()">
+          <ons-icon icon="md-arrow-right"></ons-icon>
+        </ons-fab>
+      </ng-template>
+    </ng-container>
+    <ng-template #loader>
+
+    </ng-template>
+  </div>
+</ons-page>
+
+<ons-alert-dialog #alertDialog>
+  <div class="alert-dialog-title">Cargando preguntas</div>
+  <div class="alert-dialog-content">
+    <div style="margin: 20px; text-align: center;">
+      <ons-progress-circular indeterminate></ons-progress-circular>
+    </div>
+  </div>
+</ons-alert-dialog>

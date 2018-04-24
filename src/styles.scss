@@ -1,0 +1,61 @@
+
+@import '~onsenui/css/onsenui.css';
+@import '~onsenui/css/onsen-css-components.css';
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+
+*{
+  font-family: 'Roboto', sans-serif;
+}
+
+.responsive-content{
+  margin:  0 auto;
+  max-width: 700px;
+  top: 80px !important
+}
+
+.danger{
+  color: red;
+}
+
+.center-text{
+  text-align: center
+}
+
+.center-element{
+  display: block;
+  margin: 0 auto;
+}
+
+.green-1{
+  background-color: #023324;
+}
+
+.green-2{
+  background-color: #78b92f;
+}
+
+.green-2-color{
+  color: #78b92f;
+}
+
+.background{
+  background-color: #111 !important;
+}
+
+
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+  border-color: #78b92f !important;
+  color:  #78b92f !important;
+}
+.mat-checkbox.mat-accent.mat-checkbox-checked  .mat-checkbox-inner-container{
+  color: #78b92f !important;
+}
+
+ons-toolbar{
+  height: 80px !important;
+  background: #023324 !important;
+}
+
