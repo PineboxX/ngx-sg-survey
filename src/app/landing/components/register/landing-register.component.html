@@ -7,7 +7,7 @@
     <form [formGroup]="form" (ngSubmit)="onFormSubmitted(form)">
       <mat-form-field>
         <p> * ¿ Cuál es tu genero ? </p>
-        <mat-select formControlName="genere">
+        <mat-select formControlName="gender">
           <mat-option value="M">
             Hombre
           </mat-option>
@@ -19,11 +19,21 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+      <ng-container *ngIf="form.get('gender').hasError('required') && form.get('gender').touched">
+        <p class="danger">
+          Selecciona un genero válido
+        </p>
+      </ng-container>
       <br>
       <p>* ¿ Cuál es tu edad ? </p>
       <mat-form-field>
-        <input matInput type="number" formControlName="age">
+        <input matInput type="number" formControlName="age" autocomplete="off" [min]="17" [max]="75">
       </mat-form-field>
+      <ng-container *ngIf="form.get('age').hasError('required') && form.get('age').touched">
+        <p class="danger">
+          Debes ingresar una edad válida
+        </p>
+      </ng-container>
       <br>
       <p>* ¿Conoce usted la empresa
         <strong>CREPES & WAFFLES</strong> ?</p>
@@ -34,10 +44,15 @@
           <mat-radio-button value="false"> No </mat-radio-button>
         </ng-container>
       </mat-radio-group>
+      <ng-container *ngIf="form.get('age').hasError('know') && form.get('know').touched">
+        <p class="danger">
+          Debes responder si conoces o no a la empresa
+        </p>
+      </ng-container>
       <br>
       <br>
       <button mat-button type="submit" class="green-2" style="
-          margin: 0 auto;
+          margin-left: 40px;
           width:  50%;
           display: block;
           color: white
@@ -45,3 +60,12 @@
     </form>
   </div>
 </ons-card>
+
+<ons-alert-dialog #alertDialog>
+  <div class="alert-dialog-title">Registrando datos</div>
+  <div class="alert-dialog-content">
+    <div style="margin: 20px; text-align: center;">
+      <ons-progress-circular indeterminate></ons-progress-circular>
+    </div>
+  </div>
+</ons-alert-dialog>

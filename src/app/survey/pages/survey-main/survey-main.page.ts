@@ -23,6 +23,8 @@ export class SurveyMainPage implements OnInit {
 
   @ViewChild(SurveyQuestionRadioComponent) public surveyQuestionRadioComponent: SurveyQuestionRadioComponent;
 
+  @ViewChild("alertDialog") public alertDialog;
+
   public surveyQuestionsSubs: Subscription;
 
   public surveyQuestions: SurveyQuestion[];
@@ -41,13 +43,17 @@ export class SurveyMainPage implements OnInit {
   }
 
   private getQuestions() {
+    this.alertDialog.nativeElement.show();
+
     this.store.dispatch(new surveyActions.getQuestions());
     this.surveyQuestionsSubs = this.store.select(surveySelectors.getSurveyQuestions)
       .subscribe((surveyQuestions: SurveyQuestion[]) => {
         this.surveyQuestions = surveyQuestions;
         this.surveyQuestions = orderBy(surveyQuestions, ['order'], ['asc'])
-        console.log(this.surveyQuestions);
         this.surveyQuestions = chunk(this.surveyQuestions, 2);
+        setTimeout(() => {
+          this.alertDialog.nativeElement.hide();
+        }, 3000)
       });
   }
 
@@ -115,6 +121,7 @@ export class SurveyMainPage implements OnInit {
     this.surveyAnswers[event.id] = event;
 
   }
+
 
   public saveAnswerOnDatabase() {
     this.store.dispatch(new surveyActions.saveAnswer(this.surveyAnswers))

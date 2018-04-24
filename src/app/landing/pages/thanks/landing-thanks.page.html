@@ -1,9 +1,13 @@
 <ons-page>
   <ons-toolbar>
-    <div class="center green-1">
-      <img alt="SG Survey" src="/assets/imgs/connection.svg" style="
-              width: 50px; margin-top: 10px">
-      <h1 style="color: white; display: inline"> SG Survey </h1>
+    <div class="center green-1" style="height:  100%;">
+      <img src="assets/imgs/logo-uec.svg" alt="Universidad Externado de Colombia" style="
+        width: 200px;
+        /* text-align:  center; */
+        margin:  0 auto;
+        display:  block;
+        margin-top: 10px;
+    ">
     </div>
   </ons-toolbar>
   <div class="background"></div>
@@ -11,5 +15,6 @@
     <ons-card>
       <h3 class="center-text"> Muchas Gracias por su colaboración, sus respuestas son de suma importancia para nosotros</h3>
     </ons-card>
+    <ons-button class="green-2 center-element" (click)="signOut()"> Finalizar </ons-button>
   </div>
 </ons-page>

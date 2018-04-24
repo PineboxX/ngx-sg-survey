@@ -28,6 +28,10 @@ export class LandingService {
     return Observable.fromPromise(this.afAuth.auth.signInAnonymously());
   }
 
+  public signOutUser() {
+    return Observable.fromPromise(this.afAuth.auth.signOut());
+  }
+
   public savePreRegisterOnFirestore(preRegister: preRegister, userId: string) {
     return Observable.fromPromise(this.afStore.collection(environment.organization).doc('pre-registers')
       .collection('users').doc(userId).set({

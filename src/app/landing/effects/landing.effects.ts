@@ -19,21 +19,34 @@ export class LandingEffects {
       switchMap((data: any) => {
         return this.landingService.savePreRegister(data.payload)
           .pipe(map(() => {
-            console.log('stop here');
             if (data.payload.know) {
               ons.notification.alert('Se han guardado tu registro exitosamente',
                 {
                   title: 'Registro Exitoso'
                 });
-              this.router.navigate(['survey']);
             } else {
               ons.notification.alert({
                 message: 'Muchas gracias por su tiempo y colaboración',
                 title: 'Encuesta Finalizada'
               })
-              this.router.navigate(['thanks']);
             }
 
+          }))
+      }))
+
+
+  @Effect({ dispatch: false })
+  public signOut: Observable<any> = this.actions$
+    .ofType(landingActions.SIGN_OUT)
+    .pipe(
+      switchMap((data: any) => {
+        return this.landingService.signOutUser()
+          .pipe(map(() => {
+            ons.notification.toast({
+              message: 'Se ha cerrado sesión correctamente',
+              timeout: 1000
+            })
+            this.router.navigate(['/']);
           }))
       }))
 

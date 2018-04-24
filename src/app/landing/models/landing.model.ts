@@ -1,5 +1,5 @@
 export interface preRegister {
-  genere: string;
+  gender: string;
   age: string;
   know: boolean;
 }

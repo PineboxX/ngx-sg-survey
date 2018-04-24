@@ -20,6 +20,8 @@ export function reducer(state: State = initialState, action: Action) {
   switch (action.type) {
     case landingActions.REGISTER_USER:
       return { ...state, pre_register: action.payload };
+    case landingActions.SIGN_OUT:
+      return { ...state, pre_register: null };
     default:
       return state;
   }

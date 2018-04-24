@@ -1,15 +1,19 @@
 <ons-page>
   <ons-toolbar>
-    <div class="center green-1">
-      <img alt="SG Survey" src="/assets/imgs/connection.svg" style="
-          width: 50px; margin-top: 10px">
-      <h1 style="color: white; display: inline"> SG Survey </h1>
+    <div class="center green-1" style="height:  100%;">
+      <img src="assets/imgs/logo-uec.svg" alt="Universidad Externado de Colombia" style="
+    width: 200px;
+    /* text-align:  center; */
+    margin:  0 auto;
+    display:  block;
+    margin-top: 10px;
+">
     </div>
   </ons-toolbar>
   <div class="background"></div>
   <div class="content responsive-content">
     <!-- <pre> {{ surveyQuestions$ | async | json }}</pre> -->
-    <ng-container *ngIf="surveyQuestions; else loader">
+    <ng-container *ngIf="surveyQuestions">
       <ng-container *ngFor="let question of getCurrentQuestions()">
         <ng-container [ngSwitch]="question.type">
           <app-survey-question-radio *ngSwitchCase="'radio'" [question]="question" (saveAnswer)="saveAnswers($event)"></app-survey-question-radio>
@@ -26,8 +30,16 @@
       </ng-template>
     </ng-container>
     <ng-template #loader>
-      <ons-progress-circular indeterminate></ons-progress-circular>
-      <p> ... Cargando preguntas ... </p>
+
     </ng-template>
   </div>
 </ons-page>
+
+<ons-alert-dialog #alertDialog>
+  <div class="alert-dialog-title">Cargando preguntas</div>
+  <div class="alert-dialog-content">
+    <div style="margin: 20px; text-align: center;">
+      <ons-progress-circular indeterminate></ons-progress-circular>
+    </div>
+  </div>
+</ons-alert-dialog>

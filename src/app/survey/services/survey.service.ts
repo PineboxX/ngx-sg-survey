@@ -5,7 +5,7 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
 import { SurveyQuestion } from '../models/questions.model';
-import { isEmpty, concat } from 'lodash';
+import { isEmpty, concat, has } from 'lodash';
 import * as firebase from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
 
@@ -20,7 +20,7 @@ export class SurveyService {
   public getActiveQuestion(): Observable<SurveyQuestion[]> {
     return this.afStore.collection(environment.organization).doc('survey-config').valueChanges()
       .pipe(switchMap((surveyConfig: any) => {
-        if (surveyConfig.active) {
+        if (has(surveyConfig, 'active')) {
           return this.getQuestionFromSurvey(surveyConfig.active)
         } else {
           return Observable.of([])

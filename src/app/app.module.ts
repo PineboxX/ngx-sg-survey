@@ -13,6 +13,7 @@ import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OnsenModule } from 'ngx-onsenui';
 import { EffectsModule } from '@ngrx/effects';
+import { StarRatingModule } from 'angular-star-rating';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { EffectsModule } from '@ngrx/effects';
     AngularFireAuthModule,
     AngularFirestoreModule,
     StoreModule.forRoot({}),
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([]),
+    StarRatingModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

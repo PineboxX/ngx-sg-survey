@@ -15,6 +15,10 @@
   top: 80px !important
 }
 
+.danger{
+  color: red;
+}
+
 .center-text{
   text-align: center
 }
@@ -41,13 +45,17 @@
 }
 
 
+
 .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
   border-color: #78b92f !important;
+  color:  #78b92f !important;
 }
-.mat-radio-button.mat-accent .mat-radio-inner-circle{
-  background-color: #78b92f !important;
+.mat-checkbox.mat-accent.mat-checkbox-checked  .mat-checkbox-inner-container{
+  color: #78b92f !important;
 }
 
 ons-toolbar{
   height: 80px !important;
+  background: #023324 !important;
 }
+
