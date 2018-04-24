@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'page-landing-main',
@@ -6,7 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class LandingMainPage implements OnInit {
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
+
+  goToStats() {
+    this.router.navigate(['/stats/graphV1', 0]);
+  }
+
 }

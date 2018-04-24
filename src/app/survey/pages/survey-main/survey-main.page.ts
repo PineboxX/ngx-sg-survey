@@ -48,12 +48,15 @@ export class SurveyMainPage implements OnInit {
     this.store.dispatch(new surveyActions.getQuestions());
     this.surveyQuestionsSubs = this.store.select(surveySelectors.getSurveyQuestions)
       .subscribe((surveyQuestions: SurveyQuestion[]) => {
-        this.surveyQuestions = surveyQuestions;
-        this.surveyQuestions = orderBy(surveyQuestions, ['order'], ['asc'])
-        this.surveyQuestions = chunk(this.surveyQuestions, 2);
-        setTimeout(() => {
-          this.alertDialog.nativeElement.hide();
-        }, 3000)
+        console.log(surveyQuestions);
+        if (surveyQuestions) {
+          this.surveyQuestions = surveyQuestions;
+          this.surveyQuestions = orderBy(surveyQuestions, ['order'], ['asc'])
+          // this.surveyQuestions = chunk(this.surveyQuestions, 2);
+          setTimeout(() => {
+            this.alertDialog.nativeElement.hide();
+          }, 1000)
+        }
       });
   }
 

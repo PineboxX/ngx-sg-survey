@@ -2,7 +2,8 @@ export interface SurveyQuestion {
   id: string;
   title: string;
   type: 'checkbox' | 'radio';
-  options: QuestionOptions[]
+  options: QuestionOptions[];
+  graph: string;
 }
 
 export interface QuestionOptions {

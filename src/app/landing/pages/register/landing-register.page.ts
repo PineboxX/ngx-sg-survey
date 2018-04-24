@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { has } from 'lodash';
+import { Router } from '@angular/router';
 @Component({
   selector: 'page-landing-register',
   templateUrl: 'landing-register.page.html'
@@ -9,9 +10,15 @@ import { has } from 'lodash';
 
 export class LandingRegisterPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
+  }
+
+  goToStats() {
+    this.router.navigate(['/stats/graphV1', 0]);
   }
 
 

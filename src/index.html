@@ -26,6 +26,7 @@
   <meta name="msapplication-TileColor" content="#023324">
   <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
   <meta name="theme-color" content="#023324">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
 </head>
 
 <body>
@@ -116,6 +117,39 @@
         -webkit-transform: rotate(-360deg);
       }
     }
+
+    .snackbar {
+      visibility: visible;
+      width: 100%;
+      background-color: #333;
+      color: #E0E0E0;
+      text-align: center;
+      border-radius: 2px;
+      padding: 15px;
+      padding-top: 4px;
+      position: fixed;
+      z-index: 1000000;
+      bottom: 0px;
+      font-size: 18px;
+    }
+
+    .symbol {
+      color: #FDD835;
+      font-size: 26px;
+    }
+
+    .here {
+      font-size: 21px;
+      color: #fff;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .snackbar.show {
+      visibility: visible;
+      -webkit-animation: fadein 0.5s;
+      animation: fadein 0.5s;
+    }
   </style>
   <app-root></app-root>
   <div class="splash" id="content">
@@ -127,16 +161,6 @@
     <h3>...Cargando... </h3>
     <p> Desarollado por: Sebastián Guevara</p>
   </div>
-
-  <script>
-    // Check that service workers are registered
-    if ('serviceWorker' in navigator) {
-      // Use the window load event to keep the page load performant
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js');
-      });
-    }
-  </script>
 
   <noscript>
     <p>Lo sentimos, Javascript debe estar habilitado para usar la aplicación. </p>

@@ -1,0 +1,56 @@
+<ons-page>
+  <ons-toolbar>
+    <div class="center green-1" style="height:  100%;">
+      <img src="assets/imgs/logo-uec.svg" alt="Universidad Externado de Colombia" style="
+    width: 200px;
+    /* text-align:  center; */
+    margin:  0 auto;
+    display:  block;
+    margin-top: 10px;
+">
+    </div>
+  </ons-toolbar>
+  <div class="background"></div>
+  <div class="content responsive-content">
+    <ng-container *ngIf="questions">
+      <ons-card>
+        <div class="title center-text"> {{ questions[this.questionIndex].title }}</div>
+        <div *ngIf="answers">
+          <div style="display: block">
+            <canvas baseChart [data]="currentData" [labels]="currentDataLabel" [chartType]="questions[this.questionIndex].graph" (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+
+          </div>
+
+          <div class="center">
+            <h3> Total Votos : {{ totalVotes() }}</h3>
+            <ng-container *ngIf="generalStatistics$ | async as statistics">
+              <h3> Total Usuarios Encuesta : {{ statistics.enable }}</h3>
+              <h3> Total Usuarios Pre-Registro: {{ statistics.unable || '0' }}</h3>
+            </ng-container>
+          </div>
+
+          <ons-fab class="green-2" position="left bottom" *ngIf="canShowButton('previous')" (click)="previous()">
+            <ons-icon icon="md-arrow-left"></ons-icon>
+          </ons-fab>
+          <ons-fab class="green-2" position="center bottom" (click)="goToHome()">
+            <ons-icon icon="md-home"></ons-icon>
+          </ons-fab>
+          <ons-fab class="green-2" position="right bottom" *ngIf="canShowButton('next')" (click)="next()">
+            <ons-icon icon="md-arrow-right"></ons-icon>
+          </ons-fab>
+        </div>
+
+      </ons-card>
+    </ng-container>
+  </div>
+</ons-page>
+
+<ons-alert-dialog #alertDialog>
+  <div class="alert-dialog-title">Cargando estadisticas</div>
+  <div class="alert-dialog-content">
+    <div style="margin: 20px; text-align: center;">
+      <ons-progress-circular indeterminate></ons-progress-circular>
+    </div>
+  </div>
+</ons-alert-dialog>
