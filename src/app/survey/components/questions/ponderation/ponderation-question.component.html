@@ -1,0 +1,18 @@
+<ons-card>
+  <div class="title">
+    {{ question.title }}
+  </div>
+  <div>
+    <form [formGroup]="form" (ngSubmit)="onSubmittedForm(form)">
+      <ng-container *ngFor="let option of convertToArray(question.options)">
+        {{ option.title }}
+        <mat-slider [max]="'5'" [min]="'1'" [thumb-label]="true" [tick-interval]="1" formControlName="{{option.id}}"></mat-slider>
+        {{ form.get(option.id).value}}
+        <br>
+      </ng-container>
+      <pre> {{ form.value | json }}</pre>
+      <pre> {{ form.hasError }}</pre>
+      <!-- <button mat-button type="submit"> Siguiente</button> -->
+    </form>
+  </div>
+</ons-card>

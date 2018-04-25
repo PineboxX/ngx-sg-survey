@@ -12,9 +12,9 @@
   </ons-toolbar>
   <div class="background"></div>
   <div class="content responsive-content">
-    <!-- <pre> {{ surveyQuestions$ | async | json }}</pre> -->
     <ng-container *ngIf="surveyQuestions">
       <ng-container *ngIf="getCurrentQuestions() !== undefined">
+
         <ng-container [ngSwitch]="getCurrentQuestions().type">
           <app-survey-question-radio *ngSwitchCase="'radio'" [question]="getCurrentQuestions()" (saveAnswer)="saveAnswers($event)"></app-survey-question-radio>
           <app-survey-question-checkbox *ngSwitchCase="'checkbox'" [question]="getCurrentQuestions()" (saveAnswer)="saveAnswers($event)"></app-survey-question-checkbox>
@@ -29,6 +29,7 @@
         </ons-fab>
       </ng-template>
     </ng-container>
+    <app-survey-question-ponderation></app-survey-question-ponderation>
     <ng-template #loader>
 
     </ng-template>
