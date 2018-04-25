@@ -45,7 +45,6 @@ export class SurveyQuestionPonderationComponent extends QuestionMultiple impleme
     this.setQuestionId(this.question.id);
     this.getObjectForm(this.question.options, 0);
     this.orderOptions();
-    this.form.setValidators[validatePonderation(this.getOptionsTitle())]
   }
 
   public orderOptions() {

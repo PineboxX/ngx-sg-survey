@@ -29,6 +29,7 @@ export abstract class QuestionMultiple {
         validators: [validatePonderation(this.optionsTitle)]
       });
     } else {
+      console.log('construyendo el form');
       this.form = new FormGroup(objForm);
     }
 
