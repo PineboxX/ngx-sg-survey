@@ -4,7 +4,6 @@ import { uniq } from 'lodash';
 export function validatePonderation(controlsName: string[]) {
   return function (group: AbstractControl) {
     let a = [];
-    console.log('validando');
     for (let controlName of controlsName) {
       a.push(group.get(controlName).value);
     }

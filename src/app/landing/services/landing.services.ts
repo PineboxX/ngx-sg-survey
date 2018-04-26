@@ -28,7 +28,6 @@ export class LandingService {
 
     return Observable.fromPromise(new Promise((resolve, reject) => {
       this.afAuth.auth.signInAnonymously().then(() => {
-        console.log('Sign in success');
         resolve();
       }).catch(error => console.error(error));
     }));

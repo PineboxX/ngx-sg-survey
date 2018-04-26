@@ -25,7 +25,6 @@ export class SurveyEffects {
     .ofType(surveyActions.SAVE_ANSWER)
     .pipe(
       switchMap((data: any) => {
-        console.log('action', data);
         return this.surveyService.saveAnswersFromSurvey(data.payload)
           .pipe(map(() => {
             this.router.navigate(['thanks']);

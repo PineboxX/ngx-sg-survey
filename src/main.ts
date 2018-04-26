@@ -61,7 +61,6 @@ function updateReady(worker) {
         console.log('Nuea versión disponible');
         showToast();
         window['updateAvailabl'] = true;
-        console.warn('Check Variable');
         sendSkipWaiting(worker);
     }
   });
