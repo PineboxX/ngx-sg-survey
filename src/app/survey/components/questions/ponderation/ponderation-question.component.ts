@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { SurveyQuestion } from '../../../models/questions.model';
 import { QuestionMultiple } from '../../../abstract/question-multiple.abstract';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { orderBy, toArray } from 'lodash';
 import { validatePonderation } from '../../../validators';
 
@@ -43,8 +43,17 @@ export class SurveyQuestionPonderationComponent extends QuestionMultiple impleme
 
   ngOnInit() {
     this.setQuestionId(this.question.id);
-    this.getObjectForm(this.question.options, 0);
+    this.getObjectForm(this.question.options, 'ponderation', 0);
     this.orderOptions();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.question.firstChange === false) {
+      console.log('Changes', changes.question);
+      this.setQuestionId(this.question.id);
+      this.getObjectForm(this.convertToArray(this.question.options), 'checkbox');
+      this.orderOptions();
+    }
   }
 
   public orderOptions() {
@@ -61,5 +70,19 @@ export class SurveyQuestionPonderationComponent extends QuestionMultiple impleme
       optionsTitles.push(option.title);
     }
     return optionsTitles;
+  }
+
+  public add(formControl: FormControl) {
+    if (formControl.value < 5) {
+      formControl.setValue(formControl.value + 1);
+    }
+    formControl.updateValueAndValidity();
+  }
+
+  public remove(formControl: FormControl) {
+    if (formControl.value > 0) {
+      formControl.setValue(formControl.value - 1);
+    }
+    formControl.updateValueAndValidity();
   }
 }

@@ -1,6 +1,7 @@
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 import { Output, EventEmitter } from "@angular/core";
 import { validatePonderation } from "../validators";
+import { uniq } from 'lodash';
 
 export abstract class QuestionMultiple {
 
@@ -12,7 +13,7 @@ export abstract class QuestionMultiple {
 
   public objFrom: Object;
 
-  public optionsTitle: string[] = [];
+  public optionsId: string[] = [];
 
   @Output('saveAnswer')
   public saveAnswer: EventEmitter<any> = new EventEmitter();
@@ -25,32 +26,60 @@ export abstract class QuestionMultiple {
 
   public buildForm(objForm, validators = false) {
     if (validators) {
-      this.form = new FormGroup(objForm, {
-        validators: [validatePonderation(this.optionsTitle)]
-      });
+      console.log('Options Title', this.optionsId);
+      this.form = this.fb.group(objForm);
+      let a = [];
+      console.log('validando', this.optionsId);
+      for (let controlName of this.optionsId) {
+        console.log('form', this.form);
+        this.form.get(controlName).valueChanges.subscribe(() => {
+          this.validate();
+        });
+      }
     } else {
-      console.log('construyendo el form');
-      this.form = new FormGroup(objForm);
+      this.form = this.fb.group(objForm);
     }
+  }
 
+  public validate() {
+    let a = [];
+    console.log('validando');
+    for (let controlName of this.optionsId) {
+      a.push(this.form.get(controlName).value);
+    }
+    if (uniq(a).length !== a.length) {
+      console.log('stop here', this.form);
+      this.form.get('areEqual').setValue(null);
+    } else {
+      this.form.get('areEqual').setValue(true);
+    }
+    this.form.get('areEqual').updateValueAndValidity();
   }
 
   public patchForm(obj) {
     this.form.patchValue(obj);
   }
 
-  public getObjectForm(options: any[], defaultValue: any = false) {
+  public getObjectForm(options: any[], type: 'checkbox' | 'ponderation', defaultValue: any = false) {
     const objForm = {};
     for (const option of options) {
-      this.optionsTitle.push(option.title);
+      this.optionsId.push(option.id);
       objForm[`${option['id']}`] = new FormControl(defaultValue);
     }
     this.objFrom = objForm;
-    this.buildForm(objForm);
+    switch (type) {
+      case 'ponderation':
+        this.objFrom['areEqual'] = new FormControl(null, Validators.required)
+        this.buildForm(objForm, true);
+      default:
+        this.buildForm(objForm);
+        break;
+    }
   }
 
 
   public onSubmittedForm({ value, valid }: { value: any, valid: boolean }) {
+    console.log('Survey', this.form, valid);
     if (valid) {
       this.saveAnswer.emit({ id: this.questionId, answer: value });
     }

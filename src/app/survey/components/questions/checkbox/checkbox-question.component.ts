@@ -20,7 +20,7 @@ export class SurveyQuestionCheckboxComponent extends QuestionMultiple implements
   ngOnInit() {
     console.warn('On Init', this.question);
     this.setQuestionId(this.question.id);
-    this.getObjectForm(this.convertToArray(this.question.options));
+    this.getObjectForm(this.convertToArray(this.question.options), 'checkbox');
     this.orderOptions();
   }
 
@@ -28,7 +28,7 @@ export class SurveyQuestionCheckboxComponent extends QuestionMultiple implements
     if (changes.question.firstChange === false) {
       console.log('Changes', changes.question);
       this.setQuestionId(this.question.id);
-      this.getObjectForm(this.convertToArray(this.question.options)));
+      this.getObjectForm(this.convertToArray(this.question.options), 'checkbox');
       this.orderOptions();
     }
   }
