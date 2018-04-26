@@ -51,7 +51,6 @@ export class SurveyMainPage implements OnInit {
     this.store.dispatch(new surveyActions.getQuestions());
     this.surveyQuestionsSubs = this.store.select(surveySelectors.getSurveyQuestions)
       .subscribe((surveyQuestions: SurveyQuestion[]) => {
-        console.log(surveyQuestions);
         if (surveyQuestions) {
           this.surveyQuestions = surveyQuestions;
           this.surveyQuestions = orderBy(surveyQuestions, ['order'], ['asc'])
@@ -82,7 +81,6 @@ export class SurveyMainPage implements OnInit {
     if (this.questionComponentIsShowing(this.surveyQuestionPonderationComponent)) patternQuestion += '1'
     else patternQuestion += '0'
 
-    console.log('patternQuestion', patternQuestion);
     if (this.validateFormQuestionFormComponents(patternQuestion)) {
       if (!this.itsTheLastQuestion()) {
         this.currentSurveyIndex += 1;

@@ -21,16 +21,16 @@ export class SurveyQuestionPonderationComponent extends QuestionMultiple impleme
 
   ngOnInit() {
     this.setQuestionId(this.question.id);
-    this.getObjectForm(this.question.options, 'ponderation', 0);
+    this.getObjectForm(this.convertToArray(this.question.options), 'ponderation', 0);
     this.orderOptions();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.question.firstChange === false) {
-      console.log('Changes', changes.question);
       this.setQuestionId(this.question.id);
-      this.getObjectForm(this.convertToArray(this.question.options), 'checkbox');
+      this.getObjectForm(this.convertToArray(this.question.options), 'ponderation', 0);
       this.orderOptions();
+      //this.form.reset();
     }
   }
 

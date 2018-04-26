@@ -26,12 +26,9 @@ export abstract class QuestionMultiple {
 
   public buildForm(objForm, validators = false) {
     if (validators) {
-      console.log('Options Title', this.optionsId);
       this.form = this.fb.group(objForm);
       let a = [];
-      console.log('validando', this.optionsId);
       for (let controlName of this.optionsId) {
-        console.log('form', this.form);
         this.form.get(controlName).valueChanges.subscribe(() => {
           this.validate();
         });
@@ -43,12 +40,10 @@ export abstract class QuestionMultiple {
 
   public validate() {
     let a = [];
-    console.log('validando');
     for (let controlName of this.optionsId) {
       a.push(this.form.get(controlName).value);
     }
     if (uniq(a).length !== a.length) {
-      console.log('stop here', this.form);
       this.form.get('areEqual').setValue(null);
     } else {
       this.form.get('areEqual').setValue(true);
@@ -79,7 +74,6 @@ export abstract class QuestionMultiple {
 
 
   public onSubmittedForm({ value, valid }: { value: any, valid: boolean }) {
-    console.log('Survey', this.form, valid);
     if (valid) {
       if (has(value, 'areEqual')) {
         delete value['areEqual'];

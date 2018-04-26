@@ -107,13 +107,9 @@ export class StatisticMainPage implements OnInit {
     return sum;
   }
 
-  public chartClicked(e: any): void {
-    console.log(e);
-  }
+  public chartClicked(e: any): void { }
 
-  public chartHovered(e: any): void {
-    console.log(e);
-  }
+  public chartHovered(e: any): void { }
 
   public getTotalUsers() {
     this.generalStatistics$ = this.statisticService.getStatistics();
