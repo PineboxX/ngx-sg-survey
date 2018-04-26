@@ -17,8 +17,14 @@
         <div class="title center-text"> {{ questions[this.questionIndex].title }}</div>
         <div *ngIf="answers">
           <div style="display: block">
-            <canvas baseChart [data]="currentData" [labels]="currentDataLabel" [chartType]="questions[this.questionIndex].graph" (chartHover)="chartHovered($event)"
-              (chartClick)="chartClicked($event)"></canvas>
+            <ng-container *ngIf="questions[this.questionIndex].type !== 'ponderation'; else ponderationQuestion">
+              <canvas baseChart [data]="currentData" [labels]="currentDataLabel" [chartType]="questions[this.questionIndex].graph" (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+            </ng-container>
+            <ng-template #ponderationQuestion>
+              <p> En construcción: Estadisticas de este tipo de pregunta </p>
+            </ng-template>
+
 
           </div>
 

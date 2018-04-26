@@ -8,7 +8,8 @@ import {
   MatFormFieldModule,
   MatRadioModule,
   MatOptionModule,
-  MatSelectModule
+  MatSelectModule,
+  MatSliderModule
 } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { OnsenModule } from 'ngx-onsenui';
@@ -21,7 +22,8 @@ export const MATERIAL_MODULES = [
   MatFormFieldModule,
   MatRadioModule,
   MatOptionModule,
-  MatSelectModule
+  MatSelectModule,
+  MatSliderModule
 ];
 
 @NgModule({

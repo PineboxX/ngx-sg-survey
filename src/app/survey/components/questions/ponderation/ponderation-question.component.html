@@ -1,0 +1,36 @@
+<ons-card>
+  <div class="title">
+    {{ question.title }}
+  </div>
+  <div>
+    <form [formGroup]="form" (ngSubmit)="onSubmittedForm(form)">
+      <ng-container *ngFor="let option of convertToArray(question.options)">
+        <div class="center-element">
+          <h3>{{ option.title }} {{ form.get(option.id).value }}</h3>
+          <ons-fab modifier="mini" class="green-2" (click)="remove(form.get(option.id))">
+            <ons-icon icon="md-minus">
+            </ons-icon>
+          </ons-fab>
+
+          <mat-slider [max]="'5'" [min]="'0'" [thumb-label]="true" [tick-interval]="1" formControlName="{{option.id}}"></mat-slider>
+          <ons-fab modifier="mini" class="green-2" (click)="add(form.get(option.id))">
+            <ons-icon icon="md-plus">
+            </ons-icon>
+          </ons-fab>
+          <br>
+        </div>
+      </ng-container>
+      <p>
+        <strong style="color: red"> Nota: </strong>
+        <ul>
+          <li>
+            <p>Desliza para cambiar el valor de tu respuesta</p>
+          </li>
+          <li>
+            <p>Este tipo de pregunta sólo es válida si todos los valores para cada item son distintos</p>
+          </li>
+        </ul>
+        <button mat-button type="submit"> Siguiente</button>
+    </form>
+  </div>
+</ons-card>

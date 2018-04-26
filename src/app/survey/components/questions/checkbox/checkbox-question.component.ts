@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { QuestionMultiple } from '../../../abstract/question-multiple.abstract';
 import { FormBuilder } from '@angular/forms';
 import { SurveyQuestion } from '../../../models/questions.model';
@@ -18,9 +18,19 @@ export class SurveyQuestionCheckboxComponent extends QuestionMultiple implements
   }
 
   ngOnInit() {
+    console.warn('On Init', this.question);
     this.setQuestionId(this.question.id);
-    this.getObjectForm(this.question.options);
+    this.getObjectForm(this.convertToArray(this.question.options), 'checkbox');
     this.orderOptions();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.question.firstChange === false) {
+      console.log('Changes', changes.question);
+      this.setQuestionId(this.question.id);
+      this.getObjectForm(this.convertToArray(this.question.options), 'checkbox');
+      this.orderOptions();
+    }
   }
 
   public orderOptions() {

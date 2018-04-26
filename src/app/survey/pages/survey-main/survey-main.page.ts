@@ -10,6 +10,7 @@ import { SurveyQuestionCheckboxComponent } from '../../components/questions/chec
 import { SurveyQuestionRadioComponent } from '../../components/questions/radio/radio-question.component';
 import * as ons from 'onsenui';
 import { Router } from '@angular/router';
+import { SurveyQuestionPonderationComponent } from '../../components/questions/ponderation/ponderation-question.component';
 
 @Component({
   selector: 'page-survey-main',
@@ -22,6 +23,8 @@ export class SurveyMainPage implements OnInit {
   @ViewChild(SurveyQuestionCheckboxComponent) public surveyQuestionCheckboxComponent: SurveyQuestionCheckboxComponent;
 
   @ViewChild(SurveyQuestionRadioComponent) public surveyQuestionRadioComponent: SurveyQuestionRadioComponent;
+
+  @ViewChild(SurveyQuestionPonderationComponent) public surveyQuestionPonderationComponent: SurveyQuestionPonderationComponent;
 
   @ViewChild("alertDialog") public alertDialog;
 
@@ -76,6 +79,9 @@ export class SurveyMainPage implements OnInit {
     if (this.questionComponentIsShowing(this.surveyQuestionRadioComponent)) patternQuestion += '1'
     else patternQuestion += '0'
 
+    if (this.questionComponentIsShowing(this.surveyQuestionPonderationComponent)) patternQuestion += '1'
+    else patternQuestion += '0'
+
     console.log('patternQuestion', patternQuestion);
     if (this.validateFormQuestionFormComponents(patternQuestion)) {
       if (!this.itsTheLastQuestion()) {
@@ -102,18 +108,23 @@ export class SurveyMainPage implements OnInit {
 
   public validateFormQuestionFormComponents(pattern) {
     switch (pattern) {
-      case '11':
-        if (this.surveyQuestionCheckboxComponent.form.valid && this.surveyQuestionRadioComponent.form.valid) {
-          return true;
-        }
-        return false;
-      case '01':
+      // case '11':
+      //   if (this.surveyQuestionCheckboxComponent.form.valid && this.surveyQuestionRadioComponent.form.valid) {
+      //     return true;
+      //   }
+      //   return false;
+      case '010':
         if (this.surveyQuestionRadioComponent.form.valid) {
           return true;
         }
         return false;
-      case '10':
+      case '100':
         if (this.surveyQuestionCheckboxComponent.form.valid) {
+          return true;
+        }
+        return false;
+      case '001':
+        if (this.surveyQuestionPonderationComponent.form.valid) {
           return true;
         }
         return false;

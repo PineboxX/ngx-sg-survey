@@ -12,12 +12,14 @@
   </ons-toolbar>
   <div class="background"></div>
   <div class="content responsive-content">
-    <!-- <pre> {{ surveyQuestions$ | async | json }}</pre> -->
     <ng-container *ngIf="surveyQuestions">
       <ng-container *ngIf="getCurrentQuestions() !== undefined">
+
         <ng-container [ngSwitch]="getCurrentQuestions().type">
           <app-survey-question-radio *ngSwitchCase="'radio'" [question]="getCurrentQuestions()" (saveAnswer)="saveAnswers($event)"></app-survey-question-radio>
           <app-survey-question-checkbox *ngSwitchCase="'checkbox'" [question]="getCurrentQuestions()" (saveAnswer)="saveAnswers($event)"></app-survey-question-checkbox>
+          <app-survey-question-ponderation *ngSwitchCase="'ponderation'" [question]="getCurrentQuestions()" (saveAnswer)="saveAnswers($event)"></app-survey-question-ponderation>
+
         </ng-container>
       </ng-container>
       <ons-fab class="next_button green-2" position="center bottom" *ngIf="itsTheLastQuestion(); else notLastQuestion" (click)="next()">
