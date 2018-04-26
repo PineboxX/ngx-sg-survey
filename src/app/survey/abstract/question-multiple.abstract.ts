@@ -1,7 +1,7 @@
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 import { Output, EventEmitter } from "@angular/core";
 import { validatePonderation } from "../validators";
-import { uniq } from 'lodash';
+import { uniq, has } from 'lodash';
 
 export abstract class QuestionMultiple {
 
@@ -81,7 +81,15 @@ export abstract class QuestionMultiple {
   public onSubmittedForm({ value, valid }: { value: any, valid: boolean }) {
     console.log('Survey', this.form, valid);
     if (valid) {
-      this.saveAnswer.emit({ id: this.questionId, answer: value });
+      if (has(value, 'areEqual')) {
+        delete value['areEqual'];
+      }
+      this.saveAnswer.emit({
+        id: this.questionId, value: {
+          id: this.questionId,
+          answer: value
+        }
+      });
     }
   }
 

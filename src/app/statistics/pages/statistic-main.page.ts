@@ -122,21 +122,19 @@ export class StatisticMainPage implements OnInit {
   public canShowButton(type: 'next' | 'previous') {
     switch (type) {
       case 'previous':
-        return this.questionIndex - 1 !== -1;
+        return parseInt(this.questionIndex) - 1 !== -1;
       case 'next':
-        return this.questionIndex + 1 < this.questions.length;
+        return parseInt(this.questionIndex) + 1 < this.questions.length;
     }
   }
 
   public next() {
-    console.log('next', this.questionIndex);
     this.questionIndex = parseInt(this.questionIndex);
     this.questionIndex += 1;
     this.goTo();
   }
 
   public previous() {
-    console.log('previous', this.questionIndex);
     this.questionIndex = parseInt(this.questionIndex);
     this.questionIndex -= 1;
     this.goTo();

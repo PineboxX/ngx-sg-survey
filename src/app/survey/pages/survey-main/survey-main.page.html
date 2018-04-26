@@ -18,6 +18,8 @@
         <ng-container [ngSwitch]="getCurrentQuestions().type">
           <app-survey-question-radio *ngSwitchCase="'radio'" [question]="getCurrentQuestions()" (saveAnswer)="saveAnswers($event)"></app-survey-question-radio>
           <app-survey-question-checkbox *ngSwitchCase="'checkbox'" [question]="getCurrentQuestions()" (saveAnswer)="saveAnswers($event)"></app-survey-question-checkbox>
+          <app-survey-question-ponderation *ngSwitchCase="'ponderation'" [question]="getCurrentQuestions()" (saveAnswer)="saveAnswers($event)"></app-survey-question-ponderation>
+
         </ng-container>
       </ng-container>
       <ons-fab class="next_button green-2" position="center bottom" *ngIf="itsTheLastQuestion(); else notLastQuestion" (click)="next()">
@@ -29,7 +31,6 @@
         </ons-fab>
       </ng-template>
     </ng-container>
-    <app-survey-question-ponderation></app-survey-question-ponderation>
     <ng-template #loader>
 
     </ng-template>

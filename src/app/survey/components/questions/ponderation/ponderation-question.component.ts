@@ -13,29 +13,7 @@ import { validatePonderation } from '../../../validators';
 export class SurveyQuestionPonderationComponent extends QuestionMultiple implements OnInit {
 
   @Input('question')
-  public question: SurveyQuestion = {
-    id: '1',
-    title: 'Este es el titulo de la pregunta',
-    type: 'checkbox',
-    options: [
-      {
-        id: '2',
-        title: 'Calidad',
-        value: 'Calidad'
-      },
-      {
-        id: '3',
-        title: 'Precio',
-        value: 'Precio'
-      },
-      {
-        id: '4',
-        title: 'Calidad',
-        value: 'Calidad'
-      }
-    ],
-    graph: 'pie'
-  };
+  public question: SurveyQuestion;
 
   constructor(public fb: FormBuilder) {
     super(fb);
