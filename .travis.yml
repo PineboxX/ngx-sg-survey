@@ -15,8 +15,8 @@ script:
   - ng build --prod
 
 after_success:
+   - workbox injectManifest
   - firebase deploy --token $FIREBASE_TOKEN
-  - workbox injectManifest
 
 notifications:
   email:
